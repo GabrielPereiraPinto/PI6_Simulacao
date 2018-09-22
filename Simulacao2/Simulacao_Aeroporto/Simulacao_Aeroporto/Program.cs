@@ -13,7 +13,7 @@ namespace Simulacao_Aeroporto
 
             var usuario = new BagagemPessoa();
 
-            Console.WriteLine("===========================================+++++++++=============");
+            Console.WriteLine("=================================================================");
             Console.WriteLine("============================BEM VINDO============================");
             Console.WriteLine("=================================================================");
             Console.WriteLine("Para Simular seu tempo gasto em um aeroporto, por favor digite:");
@@ -24,7 +24,7 @@ namespace Simulacao_Aeroporto
             Console.WriteLine("O Peso da sua bagagem de mão:");
             usuario.BagagemMao = Int32.Parse(Console.ReadLine());
 
-            if (usuario.Bagagem != 0 && usuario.BagagemMao <= 10)
+            if (usuario.Bagagem != 0 || usuario.BagagemMao > 10)
             {
 
                 Console.WriteLine("Você acaba de entrar na fila para pesar suas malas e fazer check-in");
@@ -64,11 +64,18 @@ namespace Simulacao_Aeroporto
             }
 
             var pessoasInspecao = new Random().Next(0, 8); //média de 4 pessoas
-            usuario.TempoUsuario += pessoasInspecao * 4;
-            Console.WriteLine($"Você está se encaminhando para fila de inspeção de bagagens, atualmente existem {pessoasInspecao} pessoas e levará {pessoasInspecao*4} minutos para você prosseguir");
+            int tempoInspecao = 0;
+            for (int i = 0; i < pessoasInspecao; i++)
+            {
+                tempoInspecao += new Random().Next(4, 6);
+            }
+
+            usuario.TempoUsuario +=  tempoInspecao;
+            Console.WriteLine($"Você está se encaminhando para fila de inspeção de bagagens, atualmente existem {pessoasInspecao}  pessoas a sua frente.");
+            Console.WriteLine($"Foram necessários {tempoInspecao} minutos para que chegasse sua vez.");
 
             var inspecaoBagagem = new Random().Next(0, 100);
-            if (inspecaoBagagem > 80)
+            if (inspecaoBagagem > 70)
             {
                 Console.WriteLine($"Foi Necessário revistar a sua bagagem de mão, isso levou mais 5 minutos");
                 usuario.TempoUsuario += 5;
@@ -87,6 +94,8 @@ namespace Simulacao_Aeroporto
 
             Console.WriteLine($"Você Embarcou em seu Avião");
             Console.WriteLine($"Foram necessários {usuario.TempoUsuario} minutos para que você termina-se todo o processo.");
+
+            Console.ReadLine();
         }
 
         static List<BagagemPessoa> geraFila(int tamanhoMax)
