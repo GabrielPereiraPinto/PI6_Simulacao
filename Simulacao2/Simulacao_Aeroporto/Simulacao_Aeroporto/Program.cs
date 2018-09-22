@@ -24,34 +24,46 @@ namespace Simulacao_Aeroporto
             Console.WriteLine("O Peso da sua bagagem de mão:");
             usuario.BagagemMao = Int32.Parse(Console.ReadLine());
 
-            Console.WriteLine("Você acaba de entrar na fila para pesar suas malas e fazer check-in");
-
-            var filaBagagem = geraFila(12);
-            Console.WriteLine($"Atualmente existem {filaBagagem.Count()} pessoas na sua frente");
-
-            int tempoFila = 0;
-            foreach (var pessoa in filaBagagem)
+            if (usuario.Bagagem != 0 && usuario.BagagemMao <= 10)
             {
-                pessoa.PesagemBagagem();
-                pessoa.PesagemBagagemMao();
-                tempoFila += pessoa.TempoUsuario;
+
+                Console.WriteLine("Você acaba de entrar na fila para pesar suas malas e fazer check-in");
+
+                var filaBagagem = geraFila(14); //média de 7 pessoas
+                Console.WriteLine($"Atualmente existem {filaBagagem.Count()} pessoas na sua frente na fila");
+
+                int tempoFila = 0;
+                foreach (var pessoa in filaBagagem)
+                {
+                    pessoa.PesagemBagagem();
+                    pessoa.PesagemBagagemMao();
+                    tempoFila += pessoa.TempoUsuario;
+                }
+                Console.WriteLine($"Foram necessários {tempoFila} minutos para que todas pessoas a sua frente fossem atendidas");
+
+                usuario.TempoUsuario += tempoFila;
+                int tempoPesagem = 0;
+                tempoPesagem += usuario.PesagemBagagem();
+                tempoPesagem += usuario.PesagemBagagemMao();
+
+                if (usuario.BagagemExtra)
+                    Console.WriteLine("Sua Bagagem estava acima do peso de 23 kgs, foi necessário pagar pelo peso extra");
+
+                if (usuario.DespacharBagagemMao)
+                    Console.WriteLine("Sua bagagem de mão estava acima do limite de 10 kgs e precisou ser despachada");
+
+                Console.WriteLine($"Foram necessários {tempoPesagem} minutos para terminar de pesar a suas bagagens e fazer seu check-in");
             }
-            Console.WriteLine($"Foram necessários {tempoFila} minutos para que todas pessoas a sua frente fossem atendidas");
+            else
+            {
+                var filaRapida = new Random().Next(0, 8); //média de 4 pessoas
+                Console.WriteLine("Você não tem bagagens para despachar, é possível fazer apenas check-in em um guichê rapido");
+                Console.WriteLine($"Atualmente existem {filaRapida} pessoas na sua frente na fila, levará {filaRapida * 4} minutos para  o Check-in");
+                usuario.TempoUsuario += filaRapida * 4;
 
-            usuario.TempoUsuario += tempoFila;
-            int tempoPesagem = 0;
-            tempoPesagem += usuario.PesagemBagagem();
-            tempoPesagem += usuario.PesagemBagagemMao();
+            }
 
-            if (usuario.BagagemExtra)
-                Console.WriteLine("Sua Bagagem estava acima do peso de 23 kgs, foi necessário pagar pelo peso extra");
-
-            if (usuario.DespacharBagagemMao)
-                Console.WriteLine("Sua bagagem de mão estava acima do limite de 10 kgs e precisou ser despachada");
-            
-            Console.WriteLine($"Foram necessários {tempoPesagem} minutos para terminar de pesar a suas bagagens e fazer seu check-in");
-
-            var pessoasInspecao = new Random().Next(0, 5);
+            var pessoasInspecao = new Random().Next(0, 8); //média de 4 pessoas
             usuario.TempoUsuario += pessoasInspecao * 4;
             Console.WriteLine($"Você está se encaminhando para fila de inspeção de bagagens, atualmente existem {pessoasInspecao} pessoas e levará {pessoasInspecao*4} minutos para você prosseguir");
 
