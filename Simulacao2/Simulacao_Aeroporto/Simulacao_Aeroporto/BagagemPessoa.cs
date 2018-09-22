@@ -36,8 +36,8 @@ namespace Simulacao_Aeroporto
                 return 0;
 
             int tempoTotalPesagem = 0;
-            var pesagemBagagem = new Random().Next(5, 10);
-            var acertoPesoExtra = new Random().Next(5, 10);
+            var pesagemBagagem = new Random().Next(5, 11);
+            var acertoPesoExtra = new Random().Next(5, 11);
 
             tempoTotalPesagem += pesagemBagagem;
 
@@ -57,12 +57,12 @@ namespace Simulacao_Aeroporto
                 return 0;
 
             int tempoTotalPesagemMao = 0;
-            var random = new Random().Next(0, 100);          
+            var random = new Random().Next(0, 101);          
 
             if (random < 80)
             {
-                var pesagemBagagemMao = new Random().Next(5, 10);
-                var acertoPesoExtra = new Random().Next(5, 10);
+                var pesagemBagagemMao = new Random().Next(5, 11);
+                var acertoPesoExtra = new Random().Next(5, 11);
                 tempoTotalPesagemMao += pesagemBagagemMao;
 
                 if (BagagemMao > 10)

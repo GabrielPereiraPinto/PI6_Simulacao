@@ -10,7 +10,7 @@ namespace Simulacao_Aeroporto
     {
         static void Main(string[] args)
         {
-
+            //A Função do Ramdom.Next(minValue, maxValue) funciona como min <= X < max, então o valor máximo desejado deve ser adicionado 1, pois não é inclusivo.
             var usuario = new BagagemPessoa();
 
             Console.WriteLine("=================================================================");
@@ -29,7 +29,7 @@ namespace Simulacao_Aeroporto
 
                 Console.WriteLine("Você acaba de entrar na fila para pesar suas malas e fazer check-in");
 
-                var filaBagagem = geraFila(14); //média de 7 pessoas
+                var filaBagagem = geraFila(15); //média de 7 pessoas
                 Console.WriteLine($"Atualmente existem {filaBagagem.Count()} pessoas na sua frente na fila");
 
                 int tempoFila = 0;
@@ -56,18 +56,18 @@ namespace Simulacao_Aeroporto
             }
             else
             {
-                var filaRapida = new Random().Next(0, 8); //média de 4 pessoas
+                var filaRapida = new Random().Next(0, 9); //média de 4 pessoas
                 Console.WriteLine("Você não tem bagagens para despachar, é possível fazer apenas check-in em um guichê rapido");
                 Console.WriteLine($"Atualmente existem {filaRapida} pessoas na sua frente na fila, levará {filaRapida * 4} minutos para  o Check-in");
                 usuario.TempoUsuario += filaRapida * 4;
 
             }
 
-            var pessoasInspecao = new Random().Next(0, 8); //média de 4 pessoas
+            var pessoasInspecao = new Random().Next(0, 9); //média de 4 pessoas
             int tempoInspecao = 0;
             for (int i = 0; i < pessoasInspecao; i++)
             {
-                tempoInspecao += new Random().Next(4, 6);
+                tempoInspecao += new Random().Next(4, 7);
             }
 
             usuario.TempoUsuario +=  tempoInspecao;
@@ -81,7 +81,7 @@ namespace Simulacao_Aeroporto
                 usuario.TempoUsuario += 5;
             }
 
-            var portao = new Random().Next(1, 5);
+            var portao = new Random().Next(1, 6);
             var tempoPortao = usuario.TempoPortao(portao);
 
             Console.WriteLine($"O Seu portão de entrada será o portão de número  {portao}, que fica a {tempoPortao} minutos de distancia");
@@ -93,7 +93,7 @@ namespace Simulacao_Aeroporto
             }
 
             Console.WriteLine($"Você Embarcou em seu Avião");
-            Console.WriteLine($"Foram necessários {usuario.TempoUsuario} minutos para que você termina-se todo o processo.");
+            Console.WriteLine($"Foram necessários {usuario.TempoUsuario} minutos para que você terminasse todo o processo.");
 
             Console.ReadLine();
         }
@@ -104,8 +104,8 @@ namespace Simulacao_Aeroporto
             var fila = new List<BagagemPessoa>();
             for (int i = 0; i < filaRandom; i++)
             {
-                var bagagem = new Random().Next(5, 30);
-                var bagagemMao = new Random().Next(0, 15);
+                var bagagem = new Random().Next(5, 31);
+                var bagagemMao = new Random().Next(0, 16);
 
                 var usuarioFila = new BagagemPessoa(bagagem, bagagemMao);
 
